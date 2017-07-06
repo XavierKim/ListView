@@ -39,8 +39,8 @@
             android:layout_marginTop="1dp"
             android:layout_weight="0"
             android:background="#ffffffff"
-            android:onClick="onSearch"
-            android:text="검색" />
+            android:text="검색"
+            android:onClick="onSearch" />
 
         <ImageButton
             android:id="@+id/changeBtn"
