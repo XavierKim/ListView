@@ -25,6 +25,11 @@
         <activity
             android:name=".ui.SearchActivity"
             android:label="@string/title_activity_search"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.DetailActivity" />
+        <activity
+            android:name=".ui.GridActivity"
+            android:label="@string/title_activity_grid"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

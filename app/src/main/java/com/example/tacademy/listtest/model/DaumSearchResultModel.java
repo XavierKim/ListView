@@ -1,5 +1,6 @@
 package com.example.tacademy.listtest.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -92,7 +93,7 @@ public class DaumSearchResultModel
             this.generator = generator;
         }
 
-        public class Item{
+        public class Item implements Serializable{
             String pubDate;
             String title;
             String thumbnail;

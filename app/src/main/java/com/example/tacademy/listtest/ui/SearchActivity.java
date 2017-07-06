@@ -1,5 +1,6 @@
 package com.example.tacademy.listtest.ui;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,11 +9,13 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tacademy.listtest.R;
 import com.example.tacademy.listtest.model.DaumSearchResultModel;
@@ -70,6 +73,37 @@ public class SearchActivity extends RootActivity {
         searchAdapter   = new SearchAdapter();
         listView.setAdapter(searchAdapter);
 
+        //리스트뷰에 이벤트 등록하여 사용자가 클릭 혹은 탭 했을 때 반응하게 처리
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Toast.makeText(getBaseContext(),"setOnItemClickListener click",Toast.LENGTH_SHORT).show();
+                //상세화면(DetailActivity)으로 가기
+                Intent intent = new Intent(self, DetailActivity.class);
+                // 데이터를 싣는다. Serializable 객체 일렬화, 직렬화 를 통해 데이터 전송이 가능하다.
+                intent.putExtra("data", items.get(position)); //item 클래스를 implements Serializable 하여 직렬화 시킨다.
+                self.startActivity(intent);
+            }
+        });
+        //listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
+        //    @Override
+        //    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+        //        Toast.makeText(getBaseContext(),"setOnItemLongClickListener click",Toast.LENGTH_SHORT).show();
+        //        return false;
+        //    }
+        //});
+//
+        //listView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+        //    @Override
+        //    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        //        Toast.makeText(getBaseContext(),"setOnItemSelectedListener click",Toast.LENGTH_SHORT).show();
+        //    }
+//
+        //    @Override
+        //    public void onNothingSelected(AdapterView<?> adapterView) {
+        //        Toast.makeText(getBaseContext(),"onNothingSelected click",Toast.LENGTH_SHORT).show();
+        //    }
+        //});
     }
     public void initImageLoader()
     {
@@ -87,7 +121,7 @@ public class SearchActivity extends RootActivity {
         //ImageLoaderConfiguration configuration = new ImageLoaderConfiguration.Builder(this).build();
         imageLoader.init(configuration);
     }
-    class ViewHolder{
+    class ViewHolder{               //모든 커스텀 안의 셀들은 ViewHolder에 넣는다.
         TextView name;
         TextView comment;
         ImageView poster;
@@ -114,7 +148,7 @@ public class SearchActivity extends RootActivity {
                 holder  = new ViewHolder();
                 // 어차피 재활용되니가 자원을 많이 사용하는 findViewById는 최초 1회만 하는것으로 정리하지
                 // ViewHolder
-                holder.name     = (TextView)view.findViewById(R.id.name);
+                holder.name     = (TextView)view.findViewById(R.id.name); //주소값을 넘겨준다.  앞의 view를 동적으로 할당해줬기 때문에 view.을 사용한다.
                 holder.comment  = (TextView)view.findViewById(comment);
                 holder.poster   = (ImageView)view.findViewById(poster);
                 view.setTag(holder);
@@ -122,7 +156,7 @@ public class SearchActivity extends RootActivity {
                 holder = (ViewHolder)view.getTag();
             }
             // 데이터 획득
-            DaumSearchResultModel.Channel.Item item = getItem(i);
+            DaumSearchResultModel.Channel.Item item = getItem(i);           //섬네일과 원본을 서버에 같이 저장해야 한다.
             // 세팅
             // &lt;b&gt;
             holder.name.setText( Html.fromHtml(item.getTitle()) );
