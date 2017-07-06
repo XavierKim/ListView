@@ -6,6 +6,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -20,6 +22,7 @@ public class GridActivity extends AppCompatActivity {
     EditText searchInput;
     GridView gridView;
     ImageButton imageButton;
+    GridAdapter gridAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +33,9 @@ public class GridActivity extends AppCompatActivity {
         searchInput     = (EditText)findViewById(R.id.searchInput);
         gridView        = (GridView)findViewById(R.id.gridView);
         imageButton     = (ImageButton)findViewById(R.id.changeBtn);
+        //2. 그리드뷰 구성요소 세팅
+        gridAdapter = new GridAdapter();
+        gridView.setAdapter(gridAdapter);           //왜 getCount를 호출하는가?
         ////////////////////////////////////////
 
         initUI();
@@ -39,6 +45,33 @@ public class GridActivity extends AppCompatActivity {
     }
     public void onChangeView(View view){
 
+    }
+    class GridAdapter extends BaseAdapter{
+
+        @Override
+        public int getCount() {
+            return 100;
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            if(view == null){
+                view = GridActivity.this.getLayoutInflater().inflate(R.layout.cell_grid_layout, viewGroup, false);
+            }else{
+
+            }
+            return view;
+        }
     }
 
 

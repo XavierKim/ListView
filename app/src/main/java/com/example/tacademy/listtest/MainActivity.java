@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.example.tacademy.listtest.model.DaumSearchResultModel;
-import com.example.tacademy.listtest.ui.SearchActivity;
+import com.example.tacademy.listtest.ui.GridActivity;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         // 화면 전환
         //Intent intent = new Intent(MainActivity.this, ServiceActivity.class);
-        Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+        Intent intent = new Intent(MainActivity.this, GridActivity.class);
         startActivity(intent);
         finish();
 
