@@ -75,10 +75,13 @@ public class GridActivity extends AppCompatActivity {
             if(view == null){
                 if(columnCnt == 3)
                     view = GridActivity.this.getLayoutInflater().inflate(R.layout.cell_grid_layout, viewGroup, false);
+                else{
+                    view = GridActivity.this.getLayoutInflater().inflate(R.layout.cell_daum_search_layout, viewGroup, false);
+                }
             }else{
-                view = GridActivity.this.getLayoutInflater().inflate(R.layout.cell_daum_search_layout, viewGroup, false);
             }
             return view;
+
         }
     }
 
