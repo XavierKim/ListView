@@ -23,11 +23,14 @@ public class GridActivity extends AppCompatActivity {
     GridView gridView;
     ImageButton imageButton;
     GridAdapter gridAdapter;
+    int columnCnt; // 컬럼의 수
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grid);
         ////////////////////////////////////////
+        columnCnt       = 3;
         //1. xml의 요소들중 자바 코드에서 조작할 혹은 이벤트등 작용을 해야하는 구성요소들을 모두 찾는다.
         search_summary  = (TextView)findViewById(R.id.search_summary);
         searchInput     = (EditText)findViewById(R.id.searchInput);
@@ -44,7 +47,11 @@ public class GridActivity extends AppCompatActivity {
 
     }
     public void onChangeView(View view){
-
+        if(columnCnt == 3) columnCnt = 1;
+        else columnCnt = 3;
+        gridView.setNumColumns(columnCnt);
+        gridAdapter = new GridAdapter();                //새로운 Adapter를 이용해야 뷰의 종류가 바뀐다.
+        gridView.setAdapter(gridAdapter);
     }
     class GridAdapter extends BaseAdapter{
 
@@ -66,9 +73,10 @@ public class GridActivity extends AppCompatActivity {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             if(view == null){
-                view = GridActivity.this.getLayoutInflater().inflate(R.layout.cell_grid_layout, viewGroup, false);
+                if(columnCnt == 3)
+                    view = GridActivity.this.getLayoutInflater().inflate(R.layout.cell_grid_layout, viewGroup, false);
             }else{
-
+                view = GridActivity.this.getLayoutInflater().inflate(R.layout.cell_daum_search_layout, viewGroup, false);
             }
             return view;
         }
